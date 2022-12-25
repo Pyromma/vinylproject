@@ -1,0 +1,454 @@
+:root {
+    --green1: #00FF00;
+    --green2: #33FF33;
+    --green3: #66FF66;
+    --green4: #99FF55;
+    --green5: #BBFF44;
+    --green6: #AAFF00;
+    --black: #000000;
+    --white: #FFFFFF;
+    --bg-grad1: #323232;
+    --bg-grad2: #131313;
+
+    --red: #DD0000;
+
+    --dark1: #030303;
+    --dark2: #090909;
+    --dark3: #121212;
+    --dark4: #151515;
+    --dark5: #191919;
+    --dark6: #212121;
+    --dark7: #262626;
+    --dark8: #333333;
+    --dark9: #444444;
+
+    --darktran1: #111111DD;
+    --darktran2: #111111EE;
+}
+
+html {
+    height: 100%;
+    color: var(--white);
+    font-family: "Century Gothic";
+}
+
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(var(--dark9), var(--dark8));
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#mainlogo {
+    width: 300px;
+    margin-left: -150px;
+    position: absolute;
+    left: 50%;
+    bottom: 400px;
+}
+
+#minilogo {
+    height: 100%;
+    float: left;
+    margin-right: 2%;
+}
+
+/* Navigate bar */
+
+.mainbar {
+    position: sticky;
+    top: 0;
+    height: 60px;
+    background-color: var(--dark7);
+    border-bottom: solid var(--dark5) 5px;
+    padding-left: 7%;
+    padding-right: 7%;
+    font-size: 15px;
+    z-index: 2;
+}
+
+/* Log panel */
+
+.panel {
+    width: 300px;
+    height: 350px;
+    position: absolute;
+    margin-left:-150px;
+    margin-top:-175px;
+    border-top: solid 6px;
+    border-bottom: solid 6px;
+
+    border-color: var(--dark5);
+
+    top: 50%;
+    left: 50%;
+
+    text-align: center;
+    background-color: var(--dark7);
+    padding: 5px;
+}
+
+.panel p {
+    font-size: 15px;
+    float: left;
+    margin: 5px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.panel input {
+    width: 250px;
+    height: 25px;
+    margin: 2px;
+    border: 0px;
+    border-left: solid 3px;
+    border-right: solid 3px;
+
+    border-color: var(--dark3);
+
+    background-color: var(--dark5);
+    color: var(--white);
+    padding: 5px;
+    font-family: "Century Gothic";
+}
+
+/* Buttons */
+
+.navButton, #navButtonUser, #navburger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100%;
+    float: left;
+    color: var(--white);
+    text-decoration: none;
+    user-select: none; 
+
+    transition:
+    border-color ease-out 0.3s,
+    background-color ease-out 0.3s;
+
+    border-bottom: solid 5px transparent;
+}
+
+#navButtonUser {
+    float: right;
+    width: 180px;
+}
+
+#navButtonUser img {
+    height: 30px;
+}
+
+#buttonP, #buttonP:active {
+    border: 0px;
+    border-bottom: solid 3px transparent;
+
+    background-color: var(--dark4);
+
+    height: 35px;
+    width: 90px;
+
+    margin: 20px;
+    margin-top: 40px;
+    
+    font-size: 13px;
+
+    transition:
+    border-color ease-out 0.3s,
+    background-color ease-out 0.3s;
+}
+
+#buttonP:hover, .navButton:hover, #navButtonUser:hover, #navburger:hover, .game-min:hover{
+    background-color: var(--dark8);
+    border-color: var(--green1);
+}
+
+#navburger {
+    display: none;
+    width: 60px;
+    justify-items: center;
+    justify-content: center;
+}
+
+#navburger img {
+    height: 40px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 3;
+    height: 100%;
+    width: 180px;
+    margin-top: 65px;
+}
+
+.dropdown-content .navButton {
+    float: none;
+    display: flex;
+    width: 100%;
+    background-color: var(--dark7);
+    border-color: var(--dark5);
+    box-shadow: 0px 5px 30px -10px var(--black);
+    transition:
+    border-color ease-out 0.3s,
+    background-color ease-out 0.3s;
+}
+
+.dropdown-content .navButton:hover {
+    background-color: var(--dark8);
+    border-color: var(--green1);
+}
+
+#navButtonUser:hover .dropdown-content {
+    display: block;
+}
+  
+
+/* Slider */
+
+.slider {
+    width: 70%;
+    margin: auto;
+    height: 60vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.slider-panel {
+    position: relative;
+    object-fit: cover;
+    float: left;
+    width: 100%;
+    height: 60vh;
+}
+
+.slider-img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.slider-content {
+    position: absolute;
+    box-sizing: border-box;
+    top: 0; 
+    right: 0;
+    font-size: 2vmin;
+    height: 60vh;
+    width: 400px;
+    background-color: var(--darktran1);
+    padding: 30px;
+    z-index: 1;
+}
+
+.sliderButton {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 200%;
+    float: left;
+    font-weight: bold;
+    height: 60vh;
+    width: 50px;
+    background-color: var(--dark8);
+    user-select: none;
+
+    transition:
+    background-color ease-out 0.3s,
+    color ease-out 0.3s;
+}
+
+.sliderButton:hover {
+    color: var(--green1);
+    background-color: var(--dark7);
+}
+
+/* Games tab */
+
+.games-tab {
+    display: flex;
+    flex-wrap: wrap;
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    border-top: solid 2px var(--dark8);
+}
+
+.game-min {
+    position: relative;
+    margin: 2%;
+    height: 300px;
+    width: 280px;
+
+    border-top: solid 6px;
+    border-bottom: solid 6px;
+    border-color: var(--dark5);
+
+    box-shadow: 0px 5px 30px -10px var(--black);
+    background-color: var(--dark7);
+}
+/*
+.game-min div {
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 40%;
+    background-color: var(--darktran2);
+    position: absolute;
+    bottom: 0px;
+}
+*/
+.game-text {
+    width: 100%;
+    height: 40%;
+    padding-left: 15px;
+    padding-right: 15px;
+    box-sizing: border-box;
+    background-color: var(--darktran2);
+    position: absolute;
+}
+
+.game-img {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.game-img img{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#warning, #approve {
+    color: var(--red);
+    position: absolute;
+    font-size: 14px;
+    margin-top: 0px;
+}
+
+#approve {
+    color: var(--green2);
+}
+
+
+/* Responsive */
+@media screen and (max-width: 1800px) {
+    .games-tab {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .slider {
+        width: 100%;
+    }
+    .mainbar {
+        padding: 0;
+    }
+}
+
+@media screen and (max-width: 770px) {
+    .slider {
+        height: 30vh;
+    }
+    .slider-panel {
+        height: 30vh;
+    }
+    .slider-content {
+        height: 30vh;
+    }
+    .slider-img {
+        height: 30vh;
+    }
+    .sliderButton {
+        height: 30vh;
+    }
+
+    .navButton, #navButtonUser{
+        display: none;
+    }
+
+    #navburger {
+        display: flex;
+    }
+
+    .game-min {
+        width: 100%;
+        height: 200px;
+    }
+
+    .game-text {
+        top: 0;
+        bottom: 0;
+        float: left;
+        margin-left: 30%;
+        position: absolute;
+        height: 100%;
+        width: 70%;
+    }
+    
+    .game-img {
+        float: left;
+        position: absolute;
+        height: 100%;
+        width: 30%;
+    }
+
+    .game-img img {
+        height: min-content;
+        width: 80%;
+    }
+
+    .mainbar.responsive .navButton, .mainbar.responsive #navButtonUser{
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: left;
+        padding-left: 30px;
+        background-color: var(--dark7);
+        border-color: var(--dark5);
+    }
+
+    .mainbar.responsive .navButton:hover, .mainbar.responsive #navButtonUser:hover{
+        background-color: var(--dark8);
+        border-color: var(--green1);
+    }
+}
+
+@media screen and (max-width: 500px){
+    .slider {
+        display: none;
+    }
+
+    .panel {
+        height: 100%;
+        width: 100%;
+        position: static;
+        margin: 0;
+        padding-top: 50%;
+    }
+
+    .panel p {
+        float: none;
+        margin-left: 0;
+        margin-top: 30px;
+    }
+
+    #mainlogo {
+        bottom: 0px;
+        top: 5%;
+    }
+}
