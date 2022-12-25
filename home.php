@@ -48,6 +48,7 @@ if (!isset($_SESSION['loggedin'])) {
     ?>
 </body>
 <!--<script src="js.js"></script>-->
+
 <?php
     include "footer.php";
 ?>
