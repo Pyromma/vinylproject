@@ -34,7 +34,7 @@ if (!isset($_SESSION['loggedin'])) {
         while($row = $result->fetch_assoc()) { ?>
             <div class="game-min">
                 <div class="game-img">
-                    <img src="data:image/jpeg;base64,<?php echo base64_encode($row['img']) ?>">
+                    <img src="data:image/jpeg;base64,<?php echo $row['img'] ?>">
                 </div>
                 <div class="game-text">
                     <h4><?php echo $row['title'] ?></h4>
@@ -48,4 +48,6 @@ if (!isset($_SESSION['loggedin'])) {
     ?>
 </body>
 <!--<script src="js.js"></script>-->
-</html>
+<?php
+    include "footer.php";
+?>
