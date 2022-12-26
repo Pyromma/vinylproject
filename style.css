@@ -325,7 +325,7 @@ body {
     align-items: center;
 }
 .game-img img{
-    height: 80%;
+    height: 100%;
     display: flex;
     justify-content: center;
     margin-left: auto;
@@ -409,7 +409,7 @@ body {
 
     .game-img img {
         height: min-content;
-        width: 80%;
+        width: 100%;
     }
 
     .mainbar.responsive .navButton, .mainbar.responsive #navButtonUser{
