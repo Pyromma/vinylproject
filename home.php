@@ -9,36 +9,43 @@ if (!isset($_SESSION['loggedin'])) {
 ?>
 
 <body>
-    <!--Navigate bar -->
-    <div class="mainbar" id="navbar">
-        <a id="navburger" href="javascript:void(0);" onclick="navBar()"><img id="minilogo" src="images/page/navburger.png"></a>
-        <a href="home.php"><img id="minilogo" src="images/page/logo3.png"></a>
-        <a class="navButton" href="home.php">Shop</a>
-        <a class="navButton" href="">Library</a>
-        <div id="navButtonUser"><img src="images/page/userIcon.png"><?php echo "&nbsp".($_SESSION['email']); ?>
-            <div class="dropdown-content">
-                <a class="navButton" href="#">Profile</a>
-                <a class="navButton" href="#">Rentals</a>
-                <a class="navButton" href="authenticate.php?logout=true">Logout</a>
-            </div>
-        </div>
-    </div>
+    <?php include "navbar.php" ?>
 
-    <div class="games-tab">
+    <div class="content-tab">
     <?php
         include "db.php";
         //$con = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
-        $result = $conn->query("SELECT title, release_year, img FROM album ORDER BY rand() LIMIT 50");
+        $result = $conn->query("SELECT id, title, release_year, img FROM album ORDER BY rand() LIMIT 8");
 
-        while($row = $result->fetch_assoc()) { ?>
-            <div class="game-min">
+        while($row = $result->fetch_assoc()) {
+            $artists[] = array();
+            $artists = $conn->query("SELECT artists.name FROM album_artists INNER JOIN artists ON album_artists.artist_id=artists.id WHERE album_id=".$row['id'])->fetch_all(MYSQLI_ASSOC);
+            $genre = $conn->query("SELECT genres.name FROM album_genres INNER JOIN genres ON album_genres.genre_id=genres.id WHERE album_id=".$row['id'])->fetch_row();
+            ?>
+            <div class="game-min" onclick="location.href='album.php?id=<?php echo $row['id'] ?>'" style="cursor: pointer;">
                 <div class="game-img">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($row['img']) ?>">
                 </div>
                 <div class="game-text">
-                    <h4><?php echo $row['title'] ?></h4>
-                    <p><?php echo $row['release_year'] ?></p>
+                    <h3 title='<?php echo $row['title'] ?>'><?php echo $row['title'] ?></h3>
+
+                    <?php
+                        if(sizeof($artists) > 1)
+                        {
+                            $artists_formated = "";
+                            foreach ($artists as &$value) {
+                                $artists_formated = $artists_formated."\n".$value['name'];
+                            }
+                            echo "<a title='".$artists_formated."'><i>* Various Artists *</i></a>";
+                        }
+                        else
+                        {
+                            echo "<a href='https://www.youtube.com/watch?v=tTJObNueaqo&t=1991s&ab_channel=House%26Trance'>".$artists[0]['name']."</a>";
+                        }
+                    ?>
+
+                    <p><?php echo $row['release_year']." | ".$genre[0] ?></p>
                 </div>
             </div>
             
@@ -47,7 +54,6 @@ if (!isset($_SESSION['loggedin'])) {
         $conn->close();
     ?>
 </body>
-<!--<script src="js.js"></script>-->
 
 <?php
     include "footer.php";
