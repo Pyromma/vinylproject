@@ -23,7 +23,7 @@
     
             if ($stmt->num_rows > 0) {
                 $stmt->bind_result($id, $password);
-                $stmt->fetch_row();
+                $stmt->fetch();
     
                 if (password_verify($_POST['password'], $password)) {
                     session_regenerate_id();
