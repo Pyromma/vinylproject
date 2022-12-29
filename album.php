@@ -48,8 +48,8 @@
 
     <div class="content-tab">
         <div class="switchable-tab">
-            <button class="switchable-tab-button" onclick="">INFORMATION</button>
-            <button class="switchable-tab-button" onclick="">RENTALS</button>
+            <button class="switchable-tab-button" onclick="openAlbumTab(event, 'tracklist')" id="defaultTab">INFORMATION</button>
+            <button class="switchable-tab-button" onclick="openAlbumTab(event, 'rentals')">RENTALS</button>
         </div>
         <div class="info-panel-album">
             <div class="info-panel-album-cover">
@@ -101,9 +101,9 @@
             </div>
             <div style="clear: both;width: 100%;">
                 <hr>
-                <h3>Tracklist</h3>
             </div>
-            <div class="tracklist">
+            <div class="tracklist" id="tracklist">
+            <h3>TRACKLIST</h3>
                 <table>
                     <tr>
                         <th>LP.</th>
@@ -121,11 +121,24 @@
                     ?>
                 </table>
             </div>
+            <div class="tracklist" id="rentals">
+            <h3>RENTALS</h3>
+                <table>
+                    <tr>
+                        <th>LP.</th>
+                        <th>Song title</th>
+                        <th>Duration</th>
+                    </tr>
+                </table>
+            </div>
             
         </div>
     </div>
 
 </body>
+<script>
+     document.getElementById("defaultTab").click();
+</script>
 
 <?php
     include "footer.php";

@@ -5,6 +5,7 @@
     --green4: #99FF55;
     --green5: #BBFF44;
     --green6: #AAFF00;
+    --green7: #00AA00;
     --black: #000000;
     --white: #FFFFFF;
     --bg-grad1: #323232;
@@ -22,6 +23,7 @@
     --dark7: #262626;
     --dark8: #333333;
     --dark9: #444444;
+    --dark10: #4A4A4A;
 
     --dark8-5: #393939;
 
@@ -70,7 +72,7 @@ body {
     padding-left: 7%;
     padding-right: 7%;
     font-size: 15px;
-    z-index: 2;
+    z-index: 10;
 }
 
 /* Log panel */
@@ -185,7 +187,7 @@ body {
 .dropdown-content {
     display: none;
     position: absolute;
-    z-index: 3;
+    z-index: 6;
     height: 100%;
     width: 180px;
     margin-top: 65px;
@@ -214,6 +216,22 @@ body {
 
 a {
     color: var(--green3);
+}
+
+input {
+    height: 25px;
+    margin: 2px;
+    border: 0px;
+    border-left: solid 3px;
+    border-right: solid 3px;
+    font-size: large;
+
+    border-color: var(--dark3);
+
+    background-color: var(--dark6);
+    color: var(--white);
+    padding: 10px;
+    font-family: "Century Gothic";
 }
 
 /* Slider */
@@ -286,7 +304,7 @@ a {
     justify-items: center;
     justify-content: center;
     */
-    width: 80%;
+    width: 100%;
     margin: auto;
     /*margin-top: 20px;*/
     border-top: solid 2px var(--dark8);
@@ -370,6 +388,163 @@ a {
     color: var(--green2);
 }
 
+/* CHECKBOXES */
+
+.container {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-top: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: var(--dark3);
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark {
+    background-color: var(--dark8);
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark {
+    background-color: var(--green2);
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark:after {
+    left: 4px;
+    top: 2px;
+    width: 4px;
+    height: 6px;
+    border: solid var(--dark8);
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+/* SEARCH TAB */
+
+.search-tab {
+    margin-left: 10%;
+    margin-right: 10%;
+
+    height: fit-content;
+
+    min-height: 200px;
+    width: 100%;
+
+    border-left: solid 6px;
+    border-right: solid 6px;
+    border-color: var(--dark5);
+    box-shadow: 0px 5px 30px -10px var(--black);
+    
+    background-color: var(--dark7);
+}
+
+.search-tab-params {
+    float: left;
+    width: 30%;
+    box-sizing: border-box;
+    padding: 40px;
+    background-color: var(--dark9);
+    min-height: 200px;
+}
+
+.search-tab-result {
+    float: left;
+    width: 70%;
+    background-color: var(--dark8);
+    height: 100%;
+}
+
+#search-tab-search {
+    box-sizing: border-box;
+    width: 100%;
+    height: 150px;
+    background-color: var(--dark9);
+    padding: 40px;
+}
+
+#search-tab-search-container input {
+    box-sizing: border-box;
+    width: 80%;
+    height: 60px;
+    border: 0px;
+    font-size: large;
+    margin: 0;
+    float: left;
+    font-size: large;
+
+    border-top: solid 5px;
+    border-bottom: solid 5px;
+    border-color: var(--dark3);
+
+    background-color: var(--dark6);
+    color: var(--white);
+    padding: 10px;
+    font-family: "Century Gothic";
+}
+
+#search-tab-search-container button {
+    box-sizing: border-box;
+    width: 20%;
+    height: 60px;
+    border: 0px;
+    font-size: large;
+    margin: 0;
+    display: block;
+    float: left;
+    border-top: solid 5px;
+    border-bottom: solid 5px;
+    border-color: var(--dark3);
+
+    background-color: var(--dark8);
+    color: var(--white);
+    padding: 10px;
+}
+
+#search-tab-search-container button:hover {
+    background-color: var(--dark10);
+    color: var(--white);
+    border-color: var(--green1);
+    cursor: pointer;
+}
+
 /* SWITCHABLE TAB */
 
 .switchable-tab {
@@ -379,8 +554,8 @@ a {
 
     height: fit-content;
 
-    padding: 10px;
     width: 100%;
+    z-index: 2;
 
     border-left: solid 6px;
     border-right: solid 6px;
@@ -393,6 +568,8 @@ a {
     background-color: inherit;
     float: left;
     border: none;
+    border-top: solid 6px;
+    border-color: var(--dark5);
     outline: none;
     cursor: pointer;
     font-size: 20px;
@@ -405,7 +582,9 @@ a {
 }
 
 .switchable-tab-button.active {
-    background-color: #ccc;
+    background-color: var(--dark9);
+    color: var(--white);
+    border-color: var(--green1);
 }
 
 /* Info Panels */
@@ -522,6 +701,11 @@ a {
         padding: 40px;
         margin: 0px;
     }
+
+    .switchable-tab {
+        width: 100%;
+        margin: 0px;
+    }
 }
 
 @media screen and (max-width: 770px) {
@@ -594,6 +778,8 @@ a {
     .info-panel-album {
         padding: 20px;
     }
+
+
 
 }
 
