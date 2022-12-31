@@ -7,6 +7,31 @@ if (!isset($_SESSION['loggedin'])) {
 }
     include "header.php";
 ?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+
+        $("#search-albums").click(function() {
+            console.log($("[name=search-text]").val());
+            $.post("search.php", {
+                search_text: $("[name='search-text']").val(),
+                genres_arr: $("[name^='genres']:checked").map(function (idx, ele) {
+                    return $(ele).val();
+                }).get(),
+                year_min: $("[name='year-min']").val(),
+                year_max: $("[name='year-max']").val(),
+                styles_arr: $("[name^='styles']:checked").map(function (idx, ele) {
+                    return $(ele).val();
+                }).get()
+                
+            }, function(data) {
+                $("#search-tab-result-results").html(data);
+            });
+        });
+        $("#search-albums").trigger('click');
+    });
+</script>
 
 <body>
     <?php include "navbar.php" ?>
@@ -23,11 +48,11 @@ if (!isset($_SESSION['loggedin'])) {
             $artists = $conn->query("SELECT artists.name FROM album_artists INNER JOIN artists ON album_artists.artist_id=artists.id WHERE album_id=".$row['id'])->fetch_all(MYSQLI_ASSOC);
             $genre = $conn->query("SELECT genres.name FROM album_genres INNER JOIN genres ON album_genres.genre_id=genres.id WHERE album_id=".$row['id'])->fetch_row();
             ?>
-            <div class="game-min" onclick="location.href='album.php?id=<?php echo $row['id'] ?>'" style="cursor: pointer;">
-                <div class="game-img">
+            <div class="p-album-min" onclick="location.href='album.php?id=<?php echo $row['id'] ?>'" style="cursor: pointer;">
+                <div class="p-album-img">
                     <img src="data:image/jpeg;base64,<?php echo base64_encode($row['img']) ?>">
                 </div>
-                <div class="game-text">
+                <div class="p-album-text">
                     <h3 title='<?php echo $row['title'] ?>'><?php echo $row['title'] ?></h3>
 
                     <?php
@@ -55,7 +80,7 @@ if (!isset($_SESSION['loggedin'])) {
         ?>
         <div class="search-tab">
             <div class="search-tab-params">
-            <form action="" method="post">
+            
                 <h3>GENRE</h3>
                 <hr>
                     <label class="container"><b>SELECT ALL</b>
@@ -84,8 +109,8 @@ if (!isset($_SESSION['loggedin'])) {
                             <td>TO</td>
                         </tr>
                         <tr>
-                            <td><input type="number" name="min-year" min="<?php echo $years[0] ?>" max="<?php echo $years[1] ?>" step="1" value="<?php echo $years[0] ?>" /></td>
-                            <td><input type="number" name="max-year" min="<?php echo $years[0] ?>" max="<?php echo $years[1] ?>" step="1" value="<?php echo $years[1] ?>" /></td>
+                            <td><input type="number" name="year-min" min="<?php echo $years[0] ?>" max="<?php echo $years[1] ?>" step="1" value="<?php echo $years[0] ?>" /></td>
+                            <td><input type="number" name="year-max" min="<?php echo $years[0] ?>" max="<?php echo $years[1] ?>" step="1" value="<?php echo $years[1] ?>" /></td>
                         </tr>
                     </table>
                 <h3>STYLES</h3>
@@ -110,81 +135,13 @@ if (!isset($_SESSION['loggedin'])) {
                 <div id="search-tab-search">
                     <div id="search-tab-search-container">
                         <input type="text" name="search-text" placeholder="Search.."></input>
-                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <button type="submit" id="search-albums"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <div id="search-tab-result-results">
 
                 </div>
             </div>
-            </form>
-
-            <?php
-                $search_album_title = "";
-                $search_artist_name = "";
-                $search_genres = "";
-                $search_styles = "";
-
-                $search_values = array();
-                $keywords = explode(' ', trim($_POST['search-text']));
-                foreach ($keywords as &$k) {
-                    array_push($search_values, "%".$k."%");
-                    $search_album_title .= "album.title LIKE ? OR ";
-                }
-                $search_album_title = substr($search_album_title, 0, strlen($search_album_title) - 3);
-                foreach ($keywords as &$k) {
-                    array_push($search_values, "%".$k."%");
-                    $search_artist_name .= "artists.name LIKE ? OR ";
-                }
-                $search_artist_name = substr($search_artist_name, 0, strlen($search_artist_name) - 3);
-                array_push($search_values, $_POST['min-year'], $_POST['max-year']);
-                foreach ($_POST["genres"] as &$k) {
-                    array_push($search_values, $k);
-                    $search_genres .= ",?";
-                }
-                foreach ($_POST["styles"] as &$k) {
-                    array_push($search_values, $k);
-                    $search_styles .= ",? ";
-                }
-                $sql_search =
-                "
-                SELECT DISTINCT tempB.id FROM album_styles
-                INNER JOIN
-                (SELECT DISTINCT tempA.id FROM album_genres 
-                INNER JOIN 
-                (SELECT DISTINCT album.id FROM album_artists 
-                INNER JOIN album ON album_artists.album_id = album.id 
-                INNER JOIN artists ON album_artists.artist_id = artists.id
-                WHERE ".$search_album_title."
-                OR ".$search_artist_name."
-                AND album.release_year > ? AND album.release_year < ?) tempA
-                ON tempA.id=album_genres.album_id
-                WHERE album_genres.genre_id IN (0".$search_genres.") ) tempB
-                ON tempB.id=album_styles.album_id
-                WHERE album_styles.style_id IN (0".$search_styles.");
-                ";
-
-                $search_album_title = "";
-                $search_artist_name = "";
-                $search_genres = "";
-                $search_styles = "";
-
-                $stmt = $conn->prepare($sql_search);
-                $stmt->execute($search_values);
-
-                $row = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-
-                foreach ($row as $v) {
-                    echo $v['id'].'<br>';
-                }
-
-                //foreach ($search_values as $v) {
-                //    echo $v.'<br>';
-                //}
-                echo sizeof($row);
-
-            ?>
-
         </div>
     </div>
 </body>
