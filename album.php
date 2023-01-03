@@ -41,6 +41,11 @@
     $result->bind_param('i', $_GET['id']);
     $result->execute();
     $tracklist = $result->get_result()->fetch_all(MYSQLI_ASSOC);
+
+    $result = $conn->prepare("SELECT id, state_carrier, state_cover FROM mediums WHERE album_id=?");
+    $result->bind_param('i', $_GET['id']);
+    $result->execute();
+    $mediums = $result->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <body>
@@ -102,36 +107,56 @@
             <div style="clear: both;width: 100%;">
                 <hr>
             </div>
-            <div class="tracklist" id="tracklist">
-            <h3>TRACKLIST</h3>
-                <table>
-                    <tr>
-                        <th>LP.</th>
-                        <th>Song title</th>
-                        <th>Duration</th>
-                    </tr>
-                    <?php
-                    foreach ($tracklist as &$track) {
-                        echo "<tr>";
-                        echo "<td style='width:10%'>".$track['lp']."</td>";
-                        echo "<td style='width:75%'>".$track['song']."</td>";
-                        echo "<td style='width:15%'>".$track['duration']."</td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </table>
+            <div class="album-tabs" id="tracklist">
+                <div class="tracklist">
+                <h3>TRACKLIST</h3>
+                    <table>
+                        <tr>
+                            <th>LP.</th>
+                            <th>Song title</th>
+                            <th>Duration</th>
+                        </tr>
+                        <?php
+                        foreach ($tracklist as &$track) {
+                            echo "<tr>";
+                            echo "<td style='width:10%'>".$track['lp']."</td>";
+                            echo "<td style='width:75%'>".$track['song']."</td>";
+                            echo "<td style='width:15%'>".$track['duration']."</td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
             </div>
-            <div class="tracklist" id="rentals">
-            <h3>RENTALS</h3>
-                <table>
-                    <tr>
-                        <th>LP.</th>
-                        <th>Song title</th>
-                        <th>Duration</th>
-                    </tr>
-                </table>
+            <div class="album-tabs" id="rentals">
+                <div class="carriers">
+                <h3>RENTALS</h3>
+                    <table>
+                        <tr>
+                            <th>Carrier's ID.</th>
+                            <th>Format</th>
+                            <th>Carrier's state</th>
+                            <th>Cover's state</th>
+                            <th>Action</th>
+                        </tr>
+                        <?php
+                        foreach ($mediums as &$medium) {
+                            $width_carrier = $medium['state_carrier'] * 20;
+                            $bgcolor_carrier = $medium['state_carrier'] * 23;
+                            $width_cover = $medium['state_cover'] * 20;
+                            $bgcolor_cover = $medium['state_cover'] * 23;
+                            echo "<tr>";
+                            echo "<td style='width:10%'>".$medium['id']."</td>";
+                            echo "<td style='width:35%'></td>";
+                            echo "<td style='width:15%'><div class='state_container'><div class='state_value' style='width:".$width_carrier."%;background-color:hsl(".$bgcolor_carrier.", 80%, 50%)'>".$medium['state_carrier']."</div></div></td>";
+                            echo "<td style='width:15%'><div class='state_container'><div class='state_value' style='width:".$width_cover."%;background-color:hsl(".$bgcolor_cover.", 80%, 50%)'>".$medium['state_cover']."</div></div></td>";
+                            echo "<td style='width:25%'><button name='signup' value='RENT'>RENT</button><button name='signup' value='RESERVE'>RESERVE</button></td>";
+                            echo "</tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
             </div>
-            
         </div>
     </div>
 
