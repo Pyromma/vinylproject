@@ -79,7 +79,7 @@ body {
 
 .panel {
     width: 300px;
-    height: 350px;
+    height: 400px;
     position: absolute;
     margin-left:-150px;
     margin-top:-175px;
@@ -120,13 +120,57 @@ body {
     font-family: "Century Gothic";
 }
 
+/* register panel */
+
+.register-panel {
+    width: 30%;
+    min-height: 50%;
+    height: fit-content;
+    justify-items: center;
+
+    border-top: solid 6px;
+    border-bottom: solid 6px;
+
+    border-color: var(--dark5);
+
+    margin: auto;
+
+    background-color: var(--dark7);
+    padding: 35px;
+}
+
+.register-panel p {
+    font-size: 15px;
+    float: left;
+    margin: 5px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.register-panel input {
+    min-width: 150px;
+    width: 100%;
+    min-height: 25px;
+    margin: 2px;
+    border: 0px;
+    border-left: solid 3px;
+    border-right: solid 3px;
+
+    border-color: var(--dark3);
+
+    background-color: var(--dark5);
+    color: var(--white);
+    padding: 5px;
+    font-family: "Century Gothic";
+}
+
 /* Buttons */
 
 .navButton, #navButtonUser, #navburger {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100px;
+    width: 200px;
     height: 100%;
     float: left;
     color: var(--white);
@@ -748,6 +792,85 @@ input {
     padding-bottom: 15px;
 }
 
+/* CARRIERS */
+
+.carriers {
+    clear: both;
+    width: 100%;
+    height: fit-content;
+}
+
+.carriers table {
+    width: 100%;
+}
+
+.carriers td {
+    padding: 6px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 80px;
+}
+
+.carriers button {
+    padding: 4px;
+    margin: 4px;
+    width: 40%;
+    background-color: var(--dark7);
+    float: left;
+    border: none;
+    border-top: solid 6px;
+    border-color: var(--dark5);
+    outline: none;
+    cursor: pointer;
+    font-size: 17px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    color: var(--white);
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+.carriers button:hover {
+    background-color: var(--dark9);
+    border-color: var(--green1);
+}
+
+.carriers tr:nth-child(odd) {
+    background-color: var(--dark8-5);
+}
+
+.carriers tr:nth-child(even) {
+    background-color: var(--dark8);
+}
+
+.carriers th {
+    text-align:left;
+    padding: 6px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.state_container {
+    padding: 5px;
+    width: 100%;
+    height: 70%;
+    box-sizing: border-box;
+    background-color: var(--dark4);
+}
+
+.state_value {
+    height: 100%;
+    line-height: 100%;
+    display: flex;
+    color: var(--dark4);
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    vertical-align: middle;
+    /*background-color: var(--green1);*/
+}
+
 /* Responsive */
 
 @media screen and (max-width: 1800px) {
@@ -852,7 +975,10 @@ input {
         padding: 20px;
     }
 
-
+    .register-panel {
+        width: 100%;
+        margin: 0;
+    }
 
 }
 

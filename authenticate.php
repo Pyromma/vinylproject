@@ -43,30 +43,4 @@
         unset($_POST['login']);
     }
     
-    if(isset($_POST['signup']))
-    {
-        if ($stmt = $conn->prepare('SELECT id FROM users WHERE email = ?')) 
-        {
-            $stmt->bind_param('s', $_POST['email']);
-            $stmt->execute();
-            $stmt->store_result();
-    
-            if ($stmt->num_rows == 0)
-            {
-                $stmtIn = $conn->prepare('INSERT INTO users(email, password) VALUES ( ? , ? )');
-                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-                $stmtIn->bind_param('ss', $_POST['email'], $password);
-                $stmtIn->execute();
-                $stmtIn->close();
-                $_SESSION['message'] = 'Signed up!';
-                header("Location: home.php");
-            }
-            else 
-            {
-                $_SESSION['message'] = 'User already exists!';
-                header("Location: login.php");
-            }
-        }
-        unset($_POST['signup']);
-    }
 ?>
