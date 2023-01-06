@@ -11,11 +11,11 @@
 ?>
 
 <body>
-    <?php include "../navbar.php" ?>
+    <?php include "navbar.php" ?>
     <div class="content-tab">
     </div>
 </body>
 
 <?php
-    include "../footer.php";
+    include "footer.php";
 ?>
