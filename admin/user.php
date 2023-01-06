@@ -79,7 +79,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['administrator'] == false) {
 </script>
 
 <body>
-    <?php include "../navbar.php" ?>
+    <?php include "navbar.php" ?>
     <div class="content-tab">
         <div class="switchable-tab">
             <button class="switchable-tab-button" onclick="openAlbumTab(event, 'user-info')" id="defaultTab">INFORMATION</button>

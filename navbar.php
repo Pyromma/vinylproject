@@ -7,7 +7,7 @@
         if($_SESSION['administrator'] == true)
             echo "<a class='navButton' href='#'>Admin panel</a>";
     ?>
-    <div id="navButtonUser"><img src="/vinylproject/images/page/userIcon.png"><?php echo "&nbsp".($_SESSION['email']); ?>
+    <div id="navButtonUser"><img src="images/page/userIcon.png"><?php echo "&nbsp".($_SESSION['email']); ?>
         <div class="dropdown-content">
             <a class="navButton" href="#">Profile</a>
             <a class="navButton" href="#">Rentals</a>

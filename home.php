@@ -5,7 +5,7 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.php');
 	exit();
 }
-    include $_SERVER['DOCUMENT_ROOT']."/vinylproject/header.php";
+    include "header.php";
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -33,11 +33,11 @@ if (!isset($_SESSION['loggedin'])) {
 </script>
 
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT']."/vinylproject/navbar.php" ?>
+    <?php include "navbar.php" ?>
 
     <div class="content-tab">
     <?php
-        include $_SERVER['DOCUMENT_ROOT']."/vinylproject/db.php";
+        include "db.php";
         //$con = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
         $result = $conn->query("SELECT id, title, release_year, img FROM album ORDER BY rand() LIMIT 8");
@@ -146,5 +146,5 @@ if (!isset($_SESSION['loggedin'])) {
 </body>
 
 <?php
-    include $_SERVER['DOCUMENT_ROOT']."/vinylproject/footer.php";
+    include "footer.php";
 ?>

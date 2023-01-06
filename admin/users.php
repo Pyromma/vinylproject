@@ -68,7 +68,7 @@ if (isset($_POST['pageno'])) {
 </script>
 
 <body>
-    <?php include "../navbar.php" ?>
+    <?php include "navbar.php" ?>
     <div class="content-tab">
         <div class="search-tab">
             <div class="search-tab-result"  style="width:100%">
