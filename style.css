@@ -657,6 +657,11 @@ input {
     cursor: pointer;
 }
 
+.search-info {
+    float: left;
+    width:30%;
+}
+
 /* SWITCHABLE TAB */
 
 .switchable-tab {
@@ -682,6 +687,7 @@ input {
     border: none;
     border-top: solid 6px;
     border-color: var(--dark5);
+    margin: 0;
     outline: none;
     cursor: pointer;
     font-size: 20px;
@@ -747,12 +753,24 @@ input {
     margin-bottom: 20px;
 }
 
-.info-panel-album-details table h2{
+.info-panel-album-details table h2, #search-tab-result-results table h2 {
     margin-top: 0px;
 }
 
-.info-panel-album-details table{
+.info-panel-album-details table, #search-tab-result-results table {
     width: 100%;
+}
+
+#search-tab-result-results table td{
+    padding: 15px;
+}
+
+#search-tab-result-results tr:nth-child(odd), .generic-table tr:nth-child(odd) {
+    background-color: var(--dark8-5);
+}
+
+#search-tab-result-results tr:nth-child(even), .generic-table tr:nth-child(even) {
+    background-color: var(--dark8);
 }
 
 .info-panel-album-details td{
@@ -811,9 +829,10 @@ input {
     height: 80px;
 }
 
-.carriers button {
+button, .carriers button {
     padding: 4px;
     margin: 4px;
+    min-width: fit-content;
     width: 40%;
     background-color: var(--dark7);
     float: left;
@@ -831,7 +850,7 @@ input {
     font-size: 17px;
 }
 
-.carriers button:hover {
+button:hover, .carriers button:hover {
     background-color: var(--dark9);
     border-color: var(--green1);
 }
@@ -869,6 +888,12 @@ input {
     text-align: center;
     vertical-align: middle;
     /*background-color: var(--green1);*/
+}
+
+#return-info {
+    color: var(--grey-text);
+    font-style: italic;
+    background-color: var(--dark7);
 }
 
 /* Responsive */

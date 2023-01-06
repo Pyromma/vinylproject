@@ -14,4 +14,6 @@ if ($conn->connect_error) {
     echo("Failed to establish connection to database");
 }
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
 ?>

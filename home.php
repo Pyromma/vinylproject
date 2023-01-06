@@ -5,7 +5,7 @@ if (!isset($_SESSION['loggedin'])) {
 	header('Location: index.php');
 	exit();
 }
-    include "header.php";
+    include $_SERVER['DOCUMENT_ROOT']."/vinylproject/header.php";
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
@@ -13,7 +13,6 @@ if (!isset($_SESSION['loggedin'])) {
     $(document).ready(function() {
 
         $("#search-albums").click(function() {
-            console.log($("[name=search-text]").val());
             $.post("search.php", {
                 search_text: $("[name='search-text']").val(),
                 genres_arr: $("[name^='genres']:checked").map(function (idx, ele) {
@@ -34,11 +33,11 @@ if (!isset($_SESSION['loggedin'])) {
 </script>
 
 <body>
-    <?php include "navbar.php" ?>
+    <?php include $_SERVER['DOCUMENT_ROOT']."/vinylproject/navbar.php" ?>
 
     <div class="content-tab">
     <?php
-        include "db.php";
+        include $_SERVER['DOCUMENT_ROOT']."/vinylproject/db.php";
         //$con = new mysqli($DATABASE_HOST, $DATABASE_USER, $DATABASE_PASS, $DATABASE_NAME);
 
         $result = $conn->query("SELECT id, title, release_year, img FROM album ORDER BY rand() LIMIT 8");
@@ -147,5 +146,5 @@ if (!isset($_SESSION['loggedin'])) {
 </body>
 
 <?php
-    include "footer.php";
+    include $_SERVER['DOCUMENT_ROOT']."/vinylproject/footer.php";
 ?>

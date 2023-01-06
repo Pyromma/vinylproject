@@ -16,13 +16,13 @@
     }
     
     if(isset($_POST['login'])){
-        if ($stmt = $conn->prepare('SELECT id, password FROM users WHERE email = ?')) {
+        if ($stmt = $conn->prepare('SELECT id, password, administrator FROM users WHERE email = ?')) {
             $stmt->bind_param('s', $_POST['email']);
             $stmt->execute();
             $stmt->store_result();
     
             if ($stmt->num_rows > 0) {
-                $stmt->bind_result($id, $password);
+                $stmt->bind_result($id, $password, $administrator);
                 $stmt->fetch();
     
                 if (password_verify($_POST['password'], $password)) {
@@ -30,6 +30,7 @@
                     $_SESSION['loggedin'] = TRUE;
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['id'] = $id;
+                    $_SESSION['administrator'] = $administrator;
                     if(isset($_SESSION['loggedin'])) header('Location: home.php');
                 } else {
                     $_SESSION['message'] = 'Incorrect login credentials';

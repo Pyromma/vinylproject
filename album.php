@@ -20,7 +20,12 @@
     $result = $conn->prepare("SELECT title, release_year, img FROM album WHERE id=?");
     $result->bind_param('i', $_GET['id']);
     $result->execute();
-    $album = $result->get_result()->fetch_assoc();
+    $result = $result->get_result();
+    if ($result->num_rows == 0)
+    {
+        header("Location: home.php");
+    }
+    $album = $result->fetch_assoc();
 
     $result = $conn->prepare("SELECT artists.id, artists.name FROM album_artists INNER JOIN artists ON album_artists.artist_id=artists.id WHERE album_id=?");
     $result->bind_param('i', $_GET['id']);
@@ -42,7 +47,7 @@
     $result->execute();
     $tracklist = $result->get_result()->fetch_all(MYSQLI_ASSOC);
 
-    $result = $conn->prepare("SELECT id, state_carrier, state_cover FROM mediums WHERE album_id=?");
+    $result = $conn->prepare("SELECT id, format, state_carrier, state_cover FROM mediums WHERE album_id=?");
     $result->bind_param('i', $_GET['id']);
     $result->execute();
     $mediums = $result->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -147,10 +152,10 @@
                             $bgcolor_cover = $medium['state_cover'] * 23;
                             echo "<tr>";
                             echo "<td style='width:10%'>".$medium['id']."</td>";
-                            echo "<td style='width:35%'></td>";
+                            echo "<td style='width:35%'>".$medium['format']."</td>";
                             echo "<td style='width:15%'><div class='state_container'><div class='state_value' style='width:".$width_carrier."%;background-color:hsl(".$bgcolor_carrier.", 80%, 50%)'>".$medium['state_carrier']."</div></div></td>";
                             echo "<td style='width:15%'><div class='state_container'><div class='state_value' style='width:".$width_cover."%;background-color:hsl(".$bgcolor_cover.", 80%, 50%)'>".$medium['state_cover']."</div></div></td>";
-                            echo "<td style='width:25%'><button name='signup' value='RENT'>RENT</button><button name='signup' value='RESERVE'>RESERVE</button></td>";
+                            echo "<td style='width:25%'><button name='rent' value='RENT'>RENT</button><button name='reserve' value='RESERVE'>RESERVE</button></td>";
                             echo "</tr>";
                         }
                         ?>
