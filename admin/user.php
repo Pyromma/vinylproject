@@ -10,7 +10,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['administrator'] == false) {
 	header('Location: ../index.php');
 	exit();
 }
-    include "../header.php";
+    include "header.php";
     include "../db.php";
 
     $result = $conn->prepare("SELECT id, email, name, surname, phone, administrator FROM users WHERE id=?");
