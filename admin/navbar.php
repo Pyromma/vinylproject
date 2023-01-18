@@ -5,7 +5,7 @@
     <a class="navButton" href="">Library</a>
     <?php
         if($_SESSION['administrator'] == true)
-            echo "<a class='navButton' href='#'>Admin panel</a>";
+            echo "<a class='navButton' href='controlpanel.php'>Admin panel</a>";
     ?>
     <div id="navButtonUser"><img src="../images/page/userIcon.png"><?php echo "&nbsp".($_SESSION['email']); ?>
         <div class="dropdown-content">
